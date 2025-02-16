@@ -1,15 +1,15 @@
 package com.amandazaine.pontoeletronico.api.repositories;
 
-import com.amandazaine.pontoeletronico.api.entities.Funcionario;
+import com.amandazaine.pontoeletronico.api.entities.FuncionarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional(readOnly = true)
-public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
+@Transactional(readOnly = true) // Todos os métodos desta classe são somente para leitura.
+public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, Long> {
 
-    Funcionario findByCpf(String cpf);
+    FuncionarioEntity findByCpf(String cpf);
 
-    Funcionario findByEmail(String email);
+    FuncionarioEntity findByEmail(String email);
 
-    Funcionario findByCpfOrEmail(String cpf, String email);
+    FuncionarioEntity findByCpfOrEmail(String cpf, String email);
 }

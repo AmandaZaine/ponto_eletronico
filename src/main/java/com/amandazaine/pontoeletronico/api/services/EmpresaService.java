@@ -1,13 +1,13 @@
 package com.amandazaine.pontoeletronico.api.services;
 
-import com.amandazaine.pontoeletronico.api.entities.Empresa;
+import com.amandazaine.pontoeletronico.api.entities.EmpresaEntity;
 
 import java.util.Optional;
 
 public interface EmpresaService {
 
-    Optional<Empresa> findByCnpj(String cnpj);
+    Optional<EmpresaEntity> findByCnpj(String cnpj);
 
-    Empresa save(Empresa empresa);
+    EmpresaEntity save(EmpresaEntity empresaEntity);
 
 }

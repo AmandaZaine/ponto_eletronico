@@ -25,11 +25,11 @@ import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "funcionario")
-public class Funcionario {
+public class FuncionarioEntity {
 		
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_funcionario;
+	private Long id;
 	
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -42,7 +42,13 @@ public class Funcionario {
 	
 	@Column(name = "cpf", nullable = false)
 	private String cpf;
-	
+
+	//"columnDefinition" diz explicitamente para o banco de dados o tipo da coluna.
+	//Quando usar columnDefinition?
+	//Quando você precisa garantir um tipo específico no banco.
+	//Quando o Hibernate não está gerando corretamente o tipo desejado.
+	//Quando trabalha com bancos diferentes e precisa garantir compatibilidade.
+	//Já "@Column(precision = 10, scale = 2)" o Hibernate fará o mapeamento automaticamente.
 	@Column(name = "valor_hora", precision = 10, scale = 2, columnDefinition = "NUMERIC(10,2)")
 	private BigDecimal valorHora;
 	
@@ -63,20 +69,22 @@ public class Funcionario {
 	private LocalDate dataAtualizacao;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Empresa empresa;
+	private EmpresaEntity empresa;
 
-	@OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Lancamento> lancamentos;
+	//cascade = CascadeType.ALL → Propaga operações de persist, merge, remove, etc.
+	//orphanRemoval = true → Se um Lancamento for removido da lista de lançamentos, o registro correspondente na tabela lancamento será automaticamente excluído do BD.
+	@OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<LancamentoEntity> lancamentos;
 
-	public Funcionario() {
+	public FuncionarioEntity() {
 	}
 
-	public Long getId_funcionario() {
-		return id_funcionario;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId_funcionario(Long id_funcionario) {
-		this.id_funcionario = id_funcionario;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -180,19 +188,19 @@ public class Funcionario {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public Empresa getEmpresa() {
+	public EmpresaEntity getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(Empresa empresa) {
+	public void setEmpresa(EmpresaEntity empresa) {
 		this.empresa = empresa;
 	}
 
-	public List<Lancamento> getLancamentos() {
+	public List<LancamentoEntity> getLancamentos() {
 		return lancamentos;
 	}
 
-	public void setLancamentos(List<Lancamento> lancamentos) {
+	public void setLancamentos(List<LancamentoEntity> lancamentos) {
 		this.lancamentos = lancamentos;
 	}
 
@@ -211,7 +219,7 @@ public class Funcionario {
 	@Override
 	public String toString() {
 		return "Funcionario{" +
-				"id_funcionario=" + id_funcionario +
+				"id=" + id +
 				", nome='" + nome + '\'' +
 				", email='" + email + '\'' +
 				", senha='" + senha + '\'' +

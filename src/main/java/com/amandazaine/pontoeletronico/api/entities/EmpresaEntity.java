@@ -17,36 +17,39 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "empresa")
-public class Empresa {
+public class EmpresaEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_empresa;
+	private Long id;
 	
 	@Column(name = "razao_social", nullable = false)
 	private String razaoSocial;
 	
 	@Column(nullable = false)
 	private String cnpj;
-	
+
+	//Mapeado automaticamente como TIMESTAMP ou DATE no banco
+	//Se precisar de uma conversão específica, pode usar @Convert com um AttributeConverter.
 	@Column(name = "data_criacao")
 	private LocalDate dataCriacao;
-	
+
+	//Mapeado automaticamente como TIMESTAMP ou DATE no banco
 	@Column(name = "data_atualizacao")
 	private LocalDate dataAtualizacao;
 	
 	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Funcionario> funcionarios;
+	private List<FuncionarioEntity> funcionarioEntities;
 	
-	public Empresa() {
+	public EmpresaEntity() {
 	}
 
-	public Long getId_empresa() {
-		return id_empresa;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId_empresa(Long id_empresa) {
-		this.id_empresa = id_empresa;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getRazaoSocial() {
@@ -81,12 +84,12 @@ public class Empresa {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public List<Funcionario> getFuncionarios() {
-		return funcionarios;
+	public List<FuncionarioEntity> getFuncionarios() {
+		return funcionarioEntities;
 	}
 
-	public void setFuncionarios(List<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
+	public void setFuncionarios(List<FuncionarioEntity> funcionarioEntities) {
+		this.funcionarioEntities = funcionarioEntities;
 	}
 
 	@PreUpdate //Executa um método antes de atualizar (UPDATE) uma entidade.

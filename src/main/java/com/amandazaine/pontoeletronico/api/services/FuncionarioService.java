@@ -1,14 +1,14 @@
 package com.amandazaine.pontoeletronico.api.services;
 
-import com.amandazaine.pontoeletronico.api.entities.Funcionario;
+import com.amandazaine.pontoeletronico.api.entities.FuncionarioEntity;
 
 import java.util.Optional;
 
 public interface FuncionarioService {
 
-    Funcionario save(Funcionario funcionario);
-    Optional<Funcionario> findByCpf(String cpf);
-    Optional<Funcionario> findByEmail(String email);
-    Optional<Funcionario> findById(Long id);
+    FuncionarioEntity save(FuncionarioEntity funcionarioEntity);
+    Optional<FuncionarioEntity> findByCpf(String cpf);
+    Optional<FuncionarioEntity> findByEmail(String email);
+    Optional<FuncionarioEntity> findById(Long id);
 
 }

@@ -1,6 +1,6 @@
 package com.amandazaine.pontoeletronico.api.repositories;
 
-import com.amandazaine.pontoeletronico.api.entities.Lancamento;
+import com.amandazaine.pontoeletronico.api.entities.LancamentoEntity;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import org.springframework.data.domain.Page;
@@ -11,13 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional(readOnly = true)
+@Transactional(readOnly = true) // Todos os métodos desta classe são somente para leitura.
 @NamedQueries({
-        @NamedQuery(name = "LancamentoRepository.findByFuncionarioId",
-                query = "SELECT lanc FROM Lancamento lanc WHERE lanc.funcionario.id = :funcionarioId") })
-public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
+        @NamedQuery(
+                    name = "LancamentoRepository.findByFuncionarioId",
+                    query = "SELECT lanc FROM Lancamento lanc WHERE lanc.funcionario.id = :funcionarioId"
+        )
+})
+public interface LancamentoRepository extends JpaRepository<LancamentoEntity, Long> {
 
-    List<Lancamento> findByFuncionarioId(@Param("funcionarioId") Long funcionarioId);
+    List<LancamentoEntity> findByFuncionarioId(@Param("funcionarioId") Long funcionarioId);
 
-    Page<Lancamento> findByFuncionarioId(@Param("funcionarioId") Long funcionarioId, Pageable pageable);
+    Page<LancamentoEntity> findByFuncionarioId(@Param("funcionarioId") Long funcionarioId, Pageable pageable);
 }

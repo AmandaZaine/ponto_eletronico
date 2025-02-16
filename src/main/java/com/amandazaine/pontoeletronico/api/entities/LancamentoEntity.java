@@ -8,11 +8,11 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "lancamento")
-public class Lancamento {
+public class LancamentoEntity {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_lancamento;
+	private Long id;
 	
 	@Column(name = "data", nullable = false)
 	private LocalDate data;
@@ -34,18 +34,18 @@ public class Lancamento {
 	private TipoEnum tipo;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "funcionario_id", nullable = false)
-	private Funcionario funcionario;
+    @JoinColumn(name = "funcionario_id", nullable = false) //Cria a chave estrangeira funcionario_id na tabela lancamento
+	private FuncionarioEntity funcionario;
 
-	public Lancamento() {
+	public LancamentoEntity() {
 	}
 
-	public Long getId_lancamento() {
-		return id_lancamento;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId_lancamento(Long id_lancamento) {
-		this.id_lancamento = id_lancamento;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public LocalDate getData() {
@@ -96,11 +96,11 @@ public class Lancamento {
 		this.tipo = tipo;
 	}
 
-	public Funcionario getFuncionario() {
+	public FuncionarioEntity getFuncionario() {
 		return funcionario;
 	}
 
-	public void setFuncionario(Funcionario funcionario) {
+	public void setFuncionario(FuncionarioEntity funcionario) {
 		this.funcionario = funcionario;
 	}
 
@@ -119,7 +119,7 @@ public class Lancamento {
 	@Override
 	public String toString() {
 		return "Lancamento{" +
-				"id_lancamento=" + id_lancamento +
+				"id_lancamento=" + id +
 				", data=" + data +
 				", descricao='" + descricao + '\'' +
 				", localizacao='" + localizacao + '\'' +
